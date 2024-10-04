@@ -50,6 +50,7 @@ In this repository, the `apim` module is used to deploy the API Management servi
     provider "azurerm" {
     features {}
         subscription_id = "00000000-0000-0000-0000-000000000000"
+        # DO NOT SAVE THIS TO YOUR REPO WITH A VALID SUBSCRIPTION ID!!!!!!
     }
     ```
 
