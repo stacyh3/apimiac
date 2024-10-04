@@ -45,6 +45,14 @@ In this repository, the `apim` module is used to deploy the API Management servi
 
 ### Steps
 
+0. **Subscription ID** Add your subscription ID to the main.tf file. This is **BAD**, but I couldn't figure out how to get it to work if I leave it out. Let me know if you sort this out. Environment variables were supposed to work, but I didn't have time to play with it.
+   ```hcl
+    provider "azurerm" {
+    features {}
+        subscription_id = "00000000-0000-0000-0000-000000000000"
+    }
+    ```
+
 1. **Initialize Terraform**: This will download the necessary providers and modules.
     ```sh
     terraform init

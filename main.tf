@@ -2,7 +2,7 @@
 
 provider "azurerm" {
   features {}
-  subscription_id = "000000000000000000000000"
+  subscription_id = "00000000-0000-0000-0000-000000000000"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -12,7 +12,7 @@ resource "azurerm_resource_group" "rg" {
 
 module "apim" {
   source              = "./modules/apim"
-  name                = "starwars-apim"
+  name                = "cshtestapim01"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   publisher_name      = "Star Wars API"
