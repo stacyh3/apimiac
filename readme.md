@@ -53,6 +53,21 @@ In this repository, the `apim` module is used to deploy the API Management servi
     }
     ```
 
+    Next change the name of your APIM deployment so that it will not conflict with mine:
+    ```hcl
+    module "apim" {
+        source              = "./modules/apim"
+        name                = "<YOUR_DEPLOYMENT_NAME_HERE>"
+        location            = azurerm_resource_group.rg.location
+        resource_group_name = azurerm_resource_group.rg.name
+        publisher_name      = "Star Wars API"
+        publisher_email     = "info@swapi.dev"
+        sku_name            = "Consumption_0"
+        api_display_name    = "Star Wars API"
+        api_path            = "swapi"  
+    }
+    ```
+
 1. **Initialize Terraform**: This will download the necessary providers and modules.
     ```sh
     terraform init
