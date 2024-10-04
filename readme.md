@@ -34,8 +34,14 @@ In this repository, the `apim` module is used to deploy the API Management servi
 
 ### Prerequisites
 
-- [Terraform](https://www.terraform.io/downloads.html) installed on your machine.
 - An Azure subscription.
+- [Terraform](https://www.terraform.io/downloads.html) installed on your machine.  
+  
+  You can install Terraform from PowerShell using:
+  ```powershell
+  winget install hashicorp.terraform
+  ```
+
 
 ### Steps
 
