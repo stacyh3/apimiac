@@ -1,7 +1,7 @@
 # modules/apim/main.tf
 
 resource "azurerm_api_management" "apim" {
-  name                = var.name
+  name                = var.apim_name
   location            = var.location
   resource_group_name = var.resource_group_name
   publisher_name      = var.publisher_name
@@ -10,7 +10,7 @@ resource "azurerm_api_management" "apim" {
 }
 
 resource "azurerm_api_management_api" "api" {
-  name = var.name
+  name                = var.api_name
   api_management_name = azurerm_api_management.apim.name
   resource_group_name = var.resource_group_name
   revision            = "1"

@@ -1,8 +1,8 @@
-# APIM module variables
+# main.tf variables
 
-variable "apim_name" {
+variable "subscription_id" {
   type        = string
-  description = "The name of the API Management service."
+  description = "The subscription ID for the Azure account."
 }
 
 variable "resource_group_name" {
@@ -13,6 +13,11 @@ variable "resource_group_name" {
 variable "location" {
   type        = string
   description = "The Azure region to deploy the resource."
+}
+
+variable "apim_name" {
+  type        = string
+  description = "The name of the API Management service."
 }
 
 variable "publisher_name" {

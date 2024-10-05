@@ -2,23 +2,24 @@
 
 provider "azurerm" {
   features {}
-  subscription_id = "00000000-0000-0000-0000-000000000000"
+  subscription_id = var.subscription_id
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "apim-rg"
-  location = "East US"
+  name     = var.resource_group_name
+  location = var.location
 }
 
 module "apim" {
   source              = "./modules/apim"
-  name                = "<your name here>"
+  apim_name           = var.apim_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  publisher_name      = "Star Wars API"
-  publisher_email     = "info@swapi.dev"
-  sku_name            = "Consumption_0"
-  api_display_name    = "Star Wars API"
-  api_path            = "swapi"  
+  publisher_name      = var.publisher_name
+  publisher_email     = var.publisher_email
+  sku_name            = var.sku_name
+  api_name            = var.api_name
+  api_display_name    = var.api_display_name
+  api_path            = var.api_path
 }
 

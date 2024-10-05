@@ -2,8 +2,10 @@
 
 This repository contains Terraform code to deploy an Azure API Management (APIM) service for the Star Wars API. The code is structured to use Terraform modules for better organization and reusability.
 
-## Structure
+## Explanation of the Code
+This Terraform configuration sets up an Azure API Management service for the Star Wars API. It uses a module to encapsulate the resources related to the API Management service, making the code more organized and reusable. Follow the steps in the "How to Deploy" section to deploy the resources to your Azure subscription.
 
+### Structure
 The repository is organized as follows:  
 ├── main.tf  
 ├── modules/  
@@ -11,7 +13,6 @@ The repository is organized as follows:
 │ ├─── main.tf  
 │ ├─── outputs.tf   
 │ └─── variables.tf   
-
 
 ### Main Components
 
@@ -30,8 +31,7 @@ Terraform modules are a way to encapsulate and reuse code. A module is a contain
 
 In this repository, the `apim` module is used to deploy the API Management service. The module is defined in the `modules/apim/` directory and is called from the `main.tf` file.
 
-## How to Deploy
-
+## How to Deploy using Terraform
 ### Prerequisites
 
 - An Azure subscription.
@@ -41,62 +41,7 @@ In this repository, the `apim` module is used to deploy the API Management servi
   ```powershell
   winget install hashicorp.terraform
   ```
-
-
 ### Steps
-
-0. **Subscription ID** Add your subscription ID to the main.tf file. This is **BAD**, but I couldn't figure out how to get it to work if I leave it out. Let me know if you sort this out. Environment variables were supposed to work, but I didn't have time to play with it.
-   ```hcl
-    provider "azurerm" {
-    features {}
-        subscription_id = "00000000-0000-0000-0000-000000000000"
-        # DO NOT SAVE THIS TO YOUR REPO WITH A VALID SUBSCRIPTION ID!!!!!!
-    }
-    ```
-
-    Next change the name of your APIM deployment so that it will not conflict with mine:
-    ```hcl
-    module "apim" {
-        source              = "./modules/apim"
-        name                = "<YOUR_DEPLOYMENT_NAME_HERE>"
-        location            = azurerm_resource_group.rg.location
-        resource_group_name = azurerm_resource_group.rg.name
-        publisher_name      = "Star Wars API"
-        publisher_email     = "info@swapi.dev"
-        sku_name            = "Consumption_0"
-        api_display_name    = "Star Wars API"
-        api_path            = "swapi"  
-    }
-    ```
-
-1. **Initialize Terraform**: This will download the necessary providers and modules.
-    ```sh
-    terraform init
-    ```
-
-2. **Plan the Deployment**: This will show you what changes will be made by the deployment.
-    ```sh
-    terraform plan
-    ```
-
-3. **Apply the Deployment**: This will apply the changes and deploy the resources to Azure.
-    ```sh
-    terraform apply
-    ```
-
-4. **Output**: After the deployment, you can get the gateway URL of the API Management service from the output.
-    ```sh
-    terraform output apim_url
-    ```
-
-## Explanation of the Code
-
-This Terraform configuration sets up an Azure API Management service for the Star Wars API. It uses a module to encapsulate the resources related to the API Management service, making the code more organized and reusable. Follow the steps in the "How to Deploy" section to deploy the resources to your Azure subscription.
-
-## How to Deploy
-### Using Terraform to Deploy
-
-To deploy this code using Terraform, follow these steps:
 
 1. **Clone the Repository**: First, clone this repository to your local machine.
     ```sh
@@ -109,24 +54,36 @@ To deploy this code using Terraform, follow these steps:
     az login
     ```
 
-3. **Initialize Terraform**: Navigate to the root directory of the repository and initialize Terraform. This will download the necessary providers and modules.
+3. **Terraform Variables** Create a variables.tfvars file in the root of the repository.
+   ```hcl
+   # variables.tfvars
+    subscription_id      = "YOUR-SUBSCRIPTION-ID"
+    resource_group_name  = "YOUR-RESOURCE-GROUP-NAME"
+    location             = "YOUR-RESOURCE-LOCATION (e.g., East US)"
+    apim_name            = "APIM-INSTANCE-NAME"
+    publisher_name       = "API-PUBLISHER-NAME (e.g., Star Wars API)"
+    publisher_email      = "API-PUBLISHER-EMAIL (e.g., info@swapi.dev)"
+    sku_name             = "APIM-SKU (e.g., Consumption_0)"
+    api_name             = "API-NAME (e.g., swapi)"
+    api_display_name     = "API-DISPLAY-NAME (e.g., Star Wars API)"
+    api_path             = "API-PATH (e.g., swapi)"
+    ```
+
+4. **Initialize Terraform**: This will download the necessary providers and modules.
     ```sh
     terraform init
     ```
 
-4. **Plan the Deployment**: Run the plan command to see the changes that will be made by the deployment.
+5. **Plan the Deployment**: This will show you what changes will be made by the deployment.
     ```sh
     terraform plan
     ```
 
-5. **Apply the Deployment**: Apply the changes to deploy the resources to Azure.
+6. **Apply the Deployment**: This will apply the changes and deploy the resources to Azure.
     ```sh
     terraform apply
     ```
-
-6. **Retrieve Outputs**: After the deployment is complete, retrieve the output values, such as the gateway URL of the API Management service.
+7. **Retrieve Outputs**: After the deployment is complete, retrieve the output values, such as the gateway URL of the API Management service.
     ```sh
     terraform output apim_url
     ```
-
-By following these steps, you will deploy the Azure API Management service for the Star Wars API using Terraform.
